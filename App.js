@@ -15,10 +15,17 @@ import Add from "./Components/Add";
 export default function App() {
   const [text, setText] = useState("");
   const [goals, setGoals] = useState([]);
+  const [modal,setModal] =useState(false)
+    function handleCancelModal(){
+      setModal(false)
+    }
+  function showModal(){
+    setModal(true)
+  }
+
   function textChange(e) {
     setText(e);
   }
-
   function addText() {
     setGoals((e) => [...goals, text]);
   }
@@ -30,7 +37,8 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      <Add addText={addText} textChange={textChange} />
+       <Button title="Add New Goal" color='#5e0acc' onPress={showModal}/>
+      <Add addText={addText} textChange={textChange} modal={modal} onCancel={handleCancelModal} />
         <View>
           {/*{goals.map((goal)=>
      <View  style={styles.goals}>
