@@ -8,7 +8,7 @@ function Item({ item, onRemove }) {
       <View style={styles.item}>
         <Text style={styles.textitem}>{item}</Text>
         <View>
-          <MaterialIcons name="delete" size={24} color="white" onPress={onRemove} />
+          <MaterialIcons name="delete" size={20} color="white" onPress={onRemove} />
         </View>
       </View>
     </View>
@@ -25,15 +25,16 @@ const styles = StyleSheet.create({
   },
   textitem: {
     fontSize: 25,
+    color:"#fff"
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
     textAlign: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     height: 40,
-    width: '80%',
-    backgroundColor: '#14b8a6',
+    width: '100%',
+    backgroundColor: '#5e0acc',
     color: '#fff',
     fontSize: 25,
   },

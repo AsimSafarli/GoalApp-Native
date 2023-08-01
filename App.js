@@ -3,12 +3,14 @@ import { useState } from "react";
 import {
   Button,
   FlatList,
-  ScrollView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
+  Platform, 
+  NativeModules,
+  SafeAreaView
 } from "react-native";
+import GeneralStatusBarColor from "react-native-general-statusbar";
+
 import Item from "./Components/Item";
 import Add from "./Components/Add";
 
@@ -30,14 +32,25 @@ export default function App() {
     setGoals((e) => [...goals, text]);
   }
 
-  function removeText(id){
+  function removeText(index) {
     setGoals((goals) =>
-      goals.filter((goal) => goal.id !== id)
+      goals.filter((_, id) => id !== index)
     );
   }
+  const { StatusBarManager } = NativeModules;
+
   return (
     <View style={styles.container}>
-       <Button title="Add New Goal" color='#5e0acc' onPress={showModal}/>
+    <GeneralStatusBarColor
+				barStyle="light-content"
+			/>
+    <SafeAreaView style={{ 
+  flex: 1, 
+  paddingTop: Platform.OS === 'android' ? StatusBarManager.HEIGHT : 0,
+ }}>
+
+ 
+    <Button title="Add New Goal" color='#5e0acc' onPress={showModal} />
       <Add addText={addText} textChange={textChange} modal={modal} onCancel={handleCancelModal} />
         <View>
           {/*{goals.map((goal)=>
@@ -45,26 +58,33 @@ export default function App() {
      <Text key={goal} style={styles.textitem}>{goal}</Text>
      </View>
      )} */}
-          <FlatList
-            data={goals}
-            renderItem={({ item }) => <Item item={item} onRemove={removeText}/>}
-            keyExtractor={(item, id) => id.toString()}
-            alwaysBounceVertical={false}
-          />
+     <FlatList
+  data={goals}
+  renderItem={({ item, index }) => <Item item={item} onRemove={() => removeText(index)} />}
+  keyExtractor={(item, index) => index.toString()}
+  alwaysBounceVertical={false}
+/>
+
         </View>
+        </SafeAreaView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    flex: 3,
+    backgroundColor: "#e11d48",
     flexDirection: "column",
     columnGap: 10,
     padding: 20,
   },
   goal: {
-    flex: 3,
+    flex: 2,
   },
+  status:{
+    flex:1,
+    backgroundColor:"#e11d48",
+    color:"#fff"
+  }
 });

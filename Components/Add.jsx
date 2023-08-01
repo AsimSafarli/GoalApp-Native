@@ -24,7 +24,7 @@ const styles =StyleSheet.create({
         alignItems:"center",
         marginRight:30,
         borderBottomWidth:1,
-        borderBottomColor:"#333"
+        borderBottomColor:"#333",
       },
       textInput :{
         width:'80%',
@@ -39,7 +39,8 @@ const styles =StyleSheet.create({
         height:100
       },
       buttons:{
-        flexDirection:'row'
-      }
+        flexDirection:'row',
+        gap:10
+      },
 })
 export default Add
